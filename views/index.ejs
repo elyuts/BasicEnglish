@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Basic English</title>
+
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel='stylesheet' href='stylesheets/style.css' />
+
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/angular/angular.min.js"></script>
+
+  <script src="js/controllers.js"></script>
+  <script src="js/directives.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body>
+
+<p>Welcome to Basic English</p>
+  <div ng-app="basicEnglishApp">
+    <div ng-controller="basicEnglishController as be" class="row-fluid">
+      <login-form ng-hide="isAuthorized" model="be.loginFormData"></login-form>
+      <main-page ng-show="isAuthorized" model="be.mainPageData"></main-page>
+      <label>{{error}}</label>
+    </div>
+  </div>
+
+</body>
+</html>

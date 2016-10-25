@@ -1,0 +1,8 @@
+<div>
+
+    <button class="btn btn-primary" ng-hide="model.isMenuMode()" ng-click="model.setMenuMode()">В меню</button>
+    <menu model="model" ng-show="model.isMenuMode()"></menu>
+    <dictionary ng-show="model.isDictionaryMode()"></dictionary>
+    <exercise ng-show="model.isExerciseMode()"></exercise>
+    <exercise-with-learning ng-show="model.isExerciseWithLearningMode()"></exercise-with-learning>
+</div>
