@@ -1,6 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const jwt = require('jsonwebtoken');
+const User = require('../models/user').User;
+const secret = require('../config').get('secret');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,6 +13,9 @@ router.post('/login', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
 
+  if(!username || !password)
+    res.status(401).json({ success: false, message: "Authentication failed. Username or password can't be empty." });
+
   User.findOne({username: username}, function(err, user) {
     if (err) throw err;
 
@@ -19,16 +24,15 @@ router.post('/login', function(req, res) {
     } else {
       // Check if password matches
       if (user.checkPassword(password)) {
-        if (isMatch && !err) {
-          // Create token if the password matched and no error was thrown
-          const token = jwt.sign(user, config.secret, {
+        // Create token if the password matched and no error was thrown
+        const token = jwt.sign(user, secret, {
             expiresIn: 10080 // in seconds
-          });
-          res.status(200).json({ success: true, token: 'JWT ' + token });
-        } else {
+        });
+        res.status(200).json({ success: true, token: 'JWT ' + token });
+      } else {
           res.status(401).json({ success: false, message: 'Authentication failed. Passwords did not match.' });
-        }
       }
+
     }
   })
 });

@@ -1,14 +1,26 @@
 (function(angular) {
     var controllers = angular.module('basicEnglishControllers', []);
 
-    controllers.controller('basicEnglishController', ['$scope', function ($scope) {
+    controllers.controller('basicEnglishController', ['$scope', 'userService', function ($scope, userService) {
         $scope.isAuthorized = false;
         $scope.error = '';
 
         this.loginFormData = {
+            username: '',
+            password: '',
             authorizationErrorMessage: '',
-            login: function(username, password){
-                $scope.isAuthorized = true;
+            login: function(){
+                if(!this.username || !this.password){
+                    this.authorizationErrorMessage = "Username or password can't be empty."
+                    return;
+                }
+                userService.login(this.username, this.password)
+                    .then(data => {
+                        console.log('success: ' + data.data.token);
+                        this.username = this.password = '';
+                    }).catch(err =>{
+                        this.authorizationErrorMessage = err.data.message;
+                    });
             }
         };
 

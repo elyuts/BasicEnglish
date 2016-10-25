@@ -1,7 +1,7 @@
 (function(angular) {
     var services = angular.module('basicEnglishServices', []);
 
-    services.factory('main', ['$http', function ($http) {
+    services.factory('userService', ['$http', function ($http) {
         return {
             login: function (username, password) {
                 return $http.post('/login', {username: username, password: password });
