@@ -4,7 +4,6 @@ const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const HttpError = require('./error').HttpError;
-const session = require('express-session');
 const config = require('./config');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
@@ -59,7 +58,7 @@ app.use(function(req, res, next) {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
   console.log('handle ' + err);
   if (typeof err === 'number') {
     err = new HttpError(err);

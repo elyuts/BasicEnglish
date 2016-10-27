@@ -16,7 +16,7 @@ router.post('/login', function(req, res) {
   if(!username || !password)
     res.status(401).json({ success: false, message: "Authentication failed. Username or password can't be empty." });
 
-  User.findOne({username: username}, function(err, user) {
+  User.findOne({username: username}, (err, user) => {
     if (err) throw err;
 
     if (!user) {
