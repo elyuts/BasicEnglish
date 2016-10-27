@@ -40,6 +40,7 @@
             replace: true,
             templateUrl: '../Templates/ng/dictionary.html',
             scope: {
+                model: '='
             }
         };
     });

@@ -1,9 +1,10 @@
 <div>
     Словарик
     <table>
-        <tr ng-repeat="(engword, rusword) in dictionary">
-            <td>{{engword}}</td>
-            <td>{{rusword}}</td>
+        <!--Не работает. Разбираюсь почему-->
+        <tr ng-repeat="item in model.fullDictionary">
+            <td>{{item.engword}}</td>
+            <td>{{item.ruswords.join(", ")}}</td>
         </tr>
     </table>
 </div>

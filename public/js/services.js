@@ -1,4 +1,5 @@
 (function(angular) {
+    const TOKEN_KEY = 'TOKEN_KEY';
     var services = angular.module('basicEnglishServices', []);
 
     services.factory('userService', ['$http', function ($http) {
@@ -8,6 +9,22 @@
             },
             logout: function () {
                 return $http.get('/logout');
+            }
+        };
+    }]);
+
+    services.factory('apiService', ['$http', function ($http) {
+        return {
+            getFullDictionary: function () {
+                var req = {
+                    method: 'GET',
+                    url: '/api/getFullDictionary',
+                    headers: {
+                        'Authorization': window.localStorage.getItem(TOKEN_KEY)
+                    }
+                };
+
+                return $http(req);
             }
         };
     }]);
