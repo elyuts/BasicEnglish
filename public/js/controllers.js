@@ -10,7 +10,7 @@
             username: '',
             password: '',
             errorMessage: '',
-            login: function(){
+            login: function() {
                 if(!this.username || !this.password){
                     this.errorMessage = "Username or password can't be empty."
                     return;
@@ -33,7 +33,6 @@
             exerciseWithLearning: 'exerciseWithLearning',
             menu: 'menu'
         };
-
         var mode = modes.menu;
 
         this.mainPageData = {
@@ -62,11 +61,12 @@
             isExerciseWithLearningMode: function(){
                 return mode === modes.exerciseWithLearning;
             },
-            fullDictionary: '',
-            completeFullDictionary: () => {
+            dictionaryData: null,
+            completeFullDictionary: function() {
                 apiService.getFullDictionary()
                     .then(response => {
-                        this.fullDictionary = response;
+                        if(!this.dictionaryData)
+                            this.dictionaryData = response.data;
                     })
                     .catch(err => {
                         $scope.error = err.data.message;

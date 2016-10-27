@@ -1,8 +1,7 @@
 <div>
     Словарик
     <table>
-        <!--Не работает. Разбираюсь почему-->
-        <tr ng-repeat="item in model.fullDictionary">
+        <tr ng-repeat="item in model">
             <td>{{item.engword}}</td>
             <td>{{item.ruswords.join(", ")}}</td>
         </tr>
