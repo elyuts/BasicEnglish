@@ -1,4 +1,4 @@
-<div class="form-horizontal login-form" name="login-form">
+<form class="form-horizontal login-form" name="login-form" ng-submit="model.login()">
     <div class="form-group">
         <label for="input-username" class="col-lg-2 control-label">Login:</label>
         <div class="col-lg-10">
@@ -14,7 +14,7 @@
     <div class="form-group">
         <div class="col-lg-offset-2 col-lg-10">
             <span class="help-block error">{{model.errorMessage}}</span>
-            <a class="btn btn-primary" ng-click="model.login()">Go!</a>
+            <input class="btn btn-primary" type="submit" value="Go!">
         </div>
     </div>
-</div>
+</form>

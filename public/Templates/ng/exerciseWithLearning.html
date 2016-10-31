@@ -1,3 +1,10 @@
 <div>
     Упражнения с обучением!
+    <table>
+        <tr ng-repeat="item in words">
+            <td>{{item.engword}}</td>
+            <td>{{item.ruswords.join(", ")}}</td>
+        </tr>
+    </table>
+    <a class="btn btn-primary" ng-click="startExercise()">Начать упражнение</a>
 </div>

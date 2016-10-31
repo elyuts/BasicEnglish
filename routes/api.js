@@ -4,8 +4,22 @@ const Word = require('../models/word').Word;
 
 /* GET users listing. */
 router.get('/getFullDictionary', (req, res, next) => {
-  Word.find({}, (err, users) => {
-    res.send(users);
+  Word.find({}, (err, words) => {
+    if (err)
+      throw err;
+
+    res.send(words);
+  });
+});
+
+router.get('/getRandomWords/:sizeOfWordSet', (req, res, next) => {
+  var sizeOfWordSet = req.params.sizeOfWordSet;
+
+  Word.findRandom({}, {}, {limit: sizeOfWordSet}, (err, words) => {
+    if (err)
+      throw err;
+
+    res.send(words);
   });
 });
 

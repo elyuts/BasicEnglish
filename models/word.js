@@ -1,4 +1,5 @@
 var mongoose = require('../lib/mongoose');
+var random = require('mongoose-simple-random');
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
@@ -12,5 +13,6 @@ var schema = new Schema({
         required: true
     }
 });
+schema.plugin(random);
 
 exports.Word = mongoose.model('Word', schema);

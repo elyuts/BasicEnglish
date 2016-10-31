@@ -1,3 +1,17 @@
 <div>
     Упражнения!
+    <form ng-submit="!model.showAnswer ? model.checkWord() : model.answerIsClearGoToNextWord()" ng-hide="model.showSummary">
+        <label>{{model.words[model.currentWordNumber].ruswords.join(", ")}}</label>
+        <input type="text" ng-model="model.userInput">
+        Введите перевод и нажмите Enter
+        <input type="submit" ng-show="false">
+    </form>
+    <div ng-show="model.showAnswer">
+        <label ng-show="model.words[model.currentWordNumber].successful">Правильно! =)</label>
+        <label ng-hide="model.words[model.currentWordNumber].successful">Не правильно :(</label>
+        Правильные ответ: {{model.words[model.currentWordNumber].engword}}
+    </div>
+    <div ng-show="model.showSummary">
+        Поздравляем! Вы дали {{model.sizeOfWordSet() - model.failedWords.length}} из {{model.sizeOfWordSet()}} правильных ответов.
+    </div>
 </div>

@@ -3,6 +3,7 @@
     var controllers = angular.module('basicEnglishControllers', []);
 
     controllers.controller('basicEnglishController', ['$scope', 'userService', 'apiService', function ($scope, userService, apiService) {
+        $scope.title='Basic English';
         $scope.isAuthorized = false;
         $scope.error = '';
 
@@ -34,6 +35,12 @@
             menu: 'menu'
         };
         var mode = modes.menu;
+        var sizeOfWordSet = 12;
+        var exerciseModes =  {
+            checkWords: 1,
+            checkFailedWords1: 2,
+            checkFailedWords2: 3
+        };
 
         this.mainPageData = {
             setMenuMode: function(){
@@ -44,9 +51,13 @@
                 this.completeFullDictionary();
             },
             setExerciseMode: function(){
+                if(this.isExerciseWithLearningMode) {
+                    this.completeExerciseData();
+                }
                 mode = modes.exercise;
             },
             setExerciseWithLearningMode: function(){
+                this.completeExerciseData();
                 mode = modes.exerciseWithLearning;
             },
             isMenuMode: function(){
@@ -67,6 +78,45 @@
                     .then(response => {
                         if(!this.dictionaryData)
                             this.dictionaryData = response.data;
+                    })
+                    .catch(err => {
+                        $scope.error = err.data.message;
+                    });
+            },
+            exerciseData: {
+                exerciseMode: exerciseModes.checkWords,
+                words: [],
+                failedWords: [],
+                currentWordNumber: 0,
+                userInput: '',
+                showAnswer: false,
+                showSummary: false,
+                sizeOfWordSet: function(){ return sizeOfWordSet },
+                checkWord: function() {
+                    var word = this.words[this.currentWordNumber];
+                    word.successful = word.engword === this.userInput.trim().toLowerCase();
+                    this.showAnswer = true;
+                    if(!word.successful && this.exerciseMode === exerciseModes.checkWords)
+                        this.failedWords.push(word);
+                },
+                answerIsClearGoToNextWord: function(){
+                    if(this.currentWordNumber < this.words.length - 1) {
+                        this.currentWordNumber++;
+                    } else if(this.exerciseMode < exerciseModes.checkFailedWords2) {
+                        this.exerciseMode++;
+                        this.words = this.failedWords;
+                        this.currentWordNumber = 0;
+                    } else {
+                        this.showSummary = true;
+                    }
+                    this.showAnswer = false;
+                    this.userInput = '';
+                }
+            },
+            completeExerciseData: function(){
+                apiService.getRandomWords(sizeOfWordSet)
+                    .then(response => {
+                        this.exerciseData.words = response.data;
                     })
                     .catch(err => {
                         $scope.error = err.data.message;

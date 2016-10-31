@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="basicEnglishApp" ng-controller="basicEnglishController as be">
 <head>
-  <title>Basic English</title>
-
+  <title>{{title}}</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
   <link rel='stylesheet' href='stylesheets/style.css' />
 
@@ -18,8 +17,8 @@
 <body>
 
 <p>Welcome to Basic English</p>
-  <div ng-app="basicEnglishApp">
-    <div ng-controller="basicEnglishController as be" class="row-fluid">
+  <div>
+    <div class="row-fluid">
       <login-form ng-hide="isAuthorized" model="be.loginFormData"></login-form>
       <main-page ng-show="isAuthorized" model="be.mainPageData"></main-page>
       <label>{{error}}</label>

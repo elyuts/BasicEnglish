@@ -51,6 +51,7 @@
             replace: true,
             templateUrl: '../Templates/ng/exercise.html',
             scope: {
+                model: '='
             }
         };
     });
@@ -61,6 +62,8 @@
             replace: true,
             templateUrl: '../Templates/ng/exerciseWithLearning.html',
             scope: {
+                words: '=',
+                startExercise: '='
             }
         };
     });
