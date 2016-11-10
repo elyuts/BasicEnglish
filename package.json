@@ -18,7 +18,6 @@
     "mongoose-simple-random": "~0.3.3",
     "passport": "~0.3.2",
     "passport-jwt": "~2.1.0",
-    "jsonwebtoken": "~7.1.9",
-    "async": "~2.1.2"
+    "jsonwebtoken": "~7.1.9"
   }
 }
