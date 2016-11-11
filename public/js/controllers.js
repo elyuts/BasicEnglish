@@ -7,6 +7,16 @@
         $scope.isAuthorized = false;
         $scope.error = '';
 
+        apiService.isAuthorized()
+            .then(response => {
+                $scope.isAuthorized = true;
+            })
+            .catch(err => {
+                if(err.status === 401)
+                    $scope.isAuthorized = false;
+                console.log(err.data);
+            });
+
         this.loginFormData = {
             username: '',
             password: '',
@@ -43,6 +53,15 @@
         };
 
         this.mainPageData = {
+            logout: function(){
+                userService.logout()
+                    .then(response => {
+                        window.localStorage.removeItem(TOKEN_KEY);
+                        $scope.isAuthorized = false;
+                        $scope.error = '';
+                    })
+                    .catch(err => $scope.error = err.data);
+            },
             setMenuMode: function(){
                 mode = modes.menu;
             },
@@ -80,6 +99,9 @@
                             this.dictionaryData = response.data;
                     })
                     .catch(err => {
+                        if(err.statusCode === 401)
+                            $scope.isAuthorized = false;
+
                         $scope.error = err.data.message;
                     });
             },
@@ -91,7 +113,6 @@
                 userInput: '',
                 showAnswer: false,
                 showSummary: false,
-                sizeOfWordSet: function(){ return sizeOfWordSet },
                 checkWord: function() {
                     var word = this.words[this.currentWordNumber];
                     word.successful = word.engword === this.userInput.trim().toLowerCase();
@@ -119,6 +140,9 @@
                         this.exerciseData.words = response.data;
                     })
                     .catch(err => {
+                        if(err.statusCode === 401)
+                            $scope.isAuthorized = false;
+
                         $scope.error = err.data.message;
                     });
             }

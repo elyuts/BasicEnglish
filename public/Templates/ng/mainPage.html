@@ -6,4 +6,5 @@
     <exercise ng-show="model.isExerciseMode()" model="model.exerciseData"></exercise>
     <exercise-with-learning ng-show="model.isExerciseWithLearningMode()" words="model.exerciseData.words"
                             start-exercise="model.setExerciseMode"></exercise-with-learning>
+    <a class="btn btn-primary" ng-click="model.logout()">Выйти</a>
 </div>

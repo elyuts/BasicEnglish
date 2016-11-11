@@ -4,7 +4,7 @@
  const Word = require('./models/word').Word;
 
  function connect(){
-     console.log('connect open');
+     console.log('connection open');
      return new Promise(resolve => {
          mongoose.connection.on('open', resolve);
      });
@@ -35,14 +35,10 @@
          new User({username: 'Admin', password: '234qwef4'})
      ];
 
-     let userSaveFunctions = users.map(userData => new Promise((resolve, reject) => {
+     let userSaveFunctions = users.map(userData => {
          let user = new User(userData);
-         user.save(err => {
-             console.log('user saved');
-             if(err) reject(err);
-             resolve();
-         });
-     }));
+         return user.save();
+     });
 
      return Promise.all(userSaveFunctions);
  }
@@ -91,13 +87,10 @@
 
      //http://iloveenglish.ru/stories/view/basic_english_ch_2_850_samikh_neobkhodimikh_anglijskikh_slov
 
-     let wordSaveFunctions = words.map(wordData => new Promise((resolve, reject) => {
+     let wordSaveFunctions = words.map(wordData => {
          let word = new Word(wordData);
-         word.save(err => {
-             if(err) reject(err);
-             resolve();
-         });
-     }));
+         return word.save();
+     });
 
      return Promise.all(wordSaveFunctions);
  }

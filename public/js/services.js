@@ -8,13 +8,24 @@
                 return $http.post('/login', { username: username, password: password });
             },
             logout: function () {
-                return $http.get('/logout');
+                return $http.post('/logout', { token: window.localStorage.getItem(TOKEN_KEY)});
             }
         };
     }]);
 
     services.factory('apiService', ['$http', function ($http) {
         return {
+            isAuthorized: function () {
+                var req = {
+                    method: 'GET',
+                    url: '/api/isAuthorized',
+                    headers: {
+                        'Authorization': window.localStorage.getItem(TOKEN_KEY)
+                    }
+                };
+
+                return $http(req);
+            },
             getFullDictionary: function () {
                 var req = {
                     method: 'GET',

@@ -12,6 +12,7 @@ const routes = require('./routes/index');
 const api = require('./routes/api');
 const passport = require('passport')
 const initPassport = require('./lib/authentication');
+const checkBlackList = require('./lib/checkBlackList')
 
 // Set up middleware
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -33,7 +34,7 @@ initPassport(passport);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/api', requireAuth, api);
+app.use('/api', requireAuth, checkBlackList, api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

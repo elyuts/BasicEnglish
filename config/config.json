@@ -9,12 +9,15 @@
   "mongoose": {
     "uri": "mongodb://localhost/BasicEnglish",
     "options": {
-      "server":{
+      "server": {
         "socketOptions":{
           "keepAlive": 1
         }
       }
     }
   },
-  "secret": "longobnoxiouspassphrase"
+  "token": {
+    "secret": "longobnoxiouspassphrase",
+    "expiresIn": "4h"
+  }
 }

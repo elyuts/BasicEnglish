@@ -1,5 +1,5 @@
 'use strict';
-var http = require('http');
+const http = require('http');
 
 class HttpError extends Error{
     constructor(status, message){
