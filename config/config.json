@@ -19,5 +19,6 @@
   "token": {
     "secret": "longobnoxiouspassphrase",
     "expiresIn": "4h"
-  }
+  },
+  "ttsKey": "0d6c8e53128c41f38a22f5975e8f82fa"
 }

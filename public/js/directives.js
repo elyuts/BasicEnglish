@@ -62,7 +62,7 @@
             replace: true,
             templateUrl: '../Templates/ng/exerciseWithLearning.html',
             scope: {
-                words: '=',
+                model: '=',
                 startExercise: '='
             }
         };

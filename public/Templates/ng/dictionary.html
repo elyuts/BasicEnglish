@@ -1,9 +1,13 @@
 <div>
     Словарик
     <table>
-        <tr ng-repeat="item in model">
-            <td>{{item.engword}}</td>
-            <td>{{item.ruswords.join(", ")}}</td>
+        <tr ng-repeat="word in model.words">
+            <td>
+                <audio id="audio_{{word._id}}" />
+                <img src="../../images/listen-icon.png" ng-click="model.makeSound(word)" />
+                {{word.engword}}
+            </td>
+            <td>{{word.ruswords.join(", ")}}</td>
         </tr>
     </table>
 </div>

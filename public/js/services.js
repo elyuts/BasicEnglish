@@ -47,6 +47,17 @@
                 };
 
                 return $http(req);
+            },
+            makeSound: function (word) {
+                var req = {
+                    method: 'GET',
+                    url: '/api/speech/' + word,
+                    headers: {
+                        'Authorization': window.localStorage.getItem(TOKEN_KEY)
+                    }
+                };
+
+                return $http(req);
             }
         };
     }]);

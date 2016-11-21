@@ -5,13 +5,14 @@
         <input type="text" ng-model="model.userInput">
         Введите перевод и нажмите Enter
         <input type="submit" ng-show="false">
+        <audio id="audio_{{model.words[model.currentWordNumber]._id}}" />
     </form>
     <div ng-show="model.showAnswer">
         <label ng-show="model.words[model.currentWordNumber].successful">Правильно! =)</label>
         <label ng-hide="model.words[model.currentWordNumber].successful">Не правильно :(</label>
-        Правильные ответ: {{model.words[model.currentWordNumber].engword}}
+        Правильный ответ: {{model.words[model.currentWordNumber].engword}}
     </div>
     <div ng-show="model.showSummary">
-        Поздравляем! Вы дали {{model.sizeOfWordSet() - model.failedWords.length}} из {{model.sizeOfWordSet()}} правильных ответов.
+        Поздравляем! Вы дали {{model.words.length - model.failedWords.length}} из {{model.words.length}} правильных ответов.
     </div>
 </div>

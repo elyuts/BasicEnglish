@@ -52,6 +52,21 @@
             checkFailedWords2: 3
         };
 
+        function makeSound(word) {
+            var audioElement = document.getElementById('audio_' + word._id);
+
+            if(audioElement.src){
+                audioElement.play();
+            } else {
+                apiService.makeSound(word.engword)
+                    .then(response => {
+
+                        audioElement.src = response.data;
+                        audioElement.play();
+                    });
+            }
+        }
+
         this.mainPageData = {
             logout: function(){
                 userService.logout()
@@ -91,12 +106,16 @@
             isExerciseWithLearningMode: function(){
                 return mode === modes.exerciseWithLearning;
             },
-            dictionaryData: null,
+
+            dictionaryData: {
+                words: null,
+                makeSound: makeSound
+            },
             completeFullDictionary: function() {
                 apiService.getFullDictionary()
                     .then(response => {
-                        if(!this.dictionaryData)
-                            this.dictionaryData = response.data;
+                        if(!this.dictionaryData.words)
+                            this.dictionaryData.words = response.data;
                     })
                     .catch(err => {
                         if(err.statusCode === 401)
@@ -113,10 +132,12 @@
                 userInput: '',
                 showAnswer: false,
                 showSummary: false,
+                makeSound: makeSound,
                 checkWord: function() {
                     var word = this.words[this.currentWordNumber];
                     word.successful = word.engword === this.userInput.trim().toLowerCase();
                     this.showAnswer = true;
+                    makeSound(word)
                     if(!word.successful && this.exerciseMode === exerciseModes.checkWords)
                         this.failedWords.push(word);
                 },
