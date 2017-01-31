@@ -1,0 +1,21 @@
+{
+  "name": "bower.json",
+  "authors": [
+    "Evgeny Lyuts <eugene.lyuts@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.4.14",
+    "bootstrap": "^3.3.7"
+  }
+}
