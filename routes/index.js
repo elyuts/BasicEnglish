@@ -31,7 +31,7 @@ router.post('/login', (req, res) => {
           });
           res.status(200).json({ success: true, token: 'JWT ' + token });
         } else {
-            res.status(401).json({ success: false, message: 'Authentication failed. Passwords did not match.' });
+            res.status(401).json({ success: false, message: 'Authentication failed. Password did not match.' });
         }
       }
     });

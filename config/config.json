@@ -4,7 +4,8 @@
     "host": "localhost",
     "port": 5432,
     "database": "BasicEnglish",
-    "user": "postgres"
+    "user": "postgres",
+    "pass": ""
   },
   "mongoose": {
     "uri": "mongodb://localhost/BasicEnglish",
