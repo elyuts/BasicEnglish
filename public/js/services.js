@@ -1,8 +1,4 @@
-(function(angular) {
-    const TOKEN_KEY = 'TOKEN_KEY';
-    var services = angular.module('basicEnglishServices', []);
-
-    services.factory('userService', ['$http', function ($http) {
+app.factory('userService', ['$http', function ($http) {
         return {
             login: function (username, password) {
                 return $http.post('/login', { username: username, password: password });
@@ -11,9 +7,9 @@
                 return $http.post('/logout', { token: window.localStorage.getItem(TOKEN_KEY)});
             }
         };
-    }]);
+    }])
 
-    services.factory('apiService', ['$http', function ($http) {
+    .factory('apiService', ['$http', function ($http) {
         return {
             isAuthorized: function () {
                 var req = {
@@ -60,6 +56,36 @@
                 return $http(req);
             }
         };
-    }]);
+    }])
 
-}(angular));
+    .factory('localDataService', ['apiService', function (apiService) {
+        return {
+            isAuthorized: null,
+            makeSound: function(word) {
+                var audioElement = document.getElementById('audio_' + word._id);
+
+                if(audioElement.src) {
+                    audioElement.play();
+                } else {
+                    apiService.makeSound(word.engword)
+                        .then(response => {
+
+                            audioElement.src = response.data;
+                            audioElement.play();
+                        });
+                }
+            },
+            checkAuthorization: function() {
+                apiService.isAuthorized()
+                    .then(response => {
+                        this.isAuthorized = true;
+                    })
+                    .catch(err => {
+                        if(err.status === 401)
+                            this.isAuthorized = false;
+                        console.log(err.data);
+                    });
+            },
+            tutorialWords: null
+        }
+    }]);

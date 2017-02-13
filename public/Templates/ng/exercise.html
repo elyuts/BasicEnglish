@@ -1,18 +1,16 @@
-<div>
-    Упражнения!
-    <form ng-submit="!model.showAnswer ? model.checkWord() : model.answerIsClearGoToNextWord()" ng-hide="model.showSummary">
-        <label>{{model.words[model.currentWordNumber].ruswords.join(", ")}}</label>
-        <input type="text" ng-model="model.userInput">
-        Введите перевод и нажмите Enter
-        <input type="submit" ng-show="false">
-        <audio id="audio_{{model.words[model.currentWordNumber]._id}}" />
-    </form>
-    <div ng-show="model.showAnswer">
-        <label ng-show="model.words[model.currentWordNumber].successful">Правильно! =)</label>
-        <label ng-hide="model.words[model.currentWordNumber].successful">Не правильно :(</label>
-        Правильный ответ: {{model.words[model.currentWordNumber].engword}}
-    </div>
-    <div ng-show="model.showSummary">
-        Поздравляем! Вы дали {{model.words.length - model.failedWords.length}} из {{model.words.length}} правильных ответов.
-    </div>
+{{ exerciseTutorialMode ? "Упражнение с обучением" : "Упражнение" }}
+<form ng-submit="!showAnswer ? checkWord() : answerIsClearGoToNextWord()" ng-hide="showSummary">
+    <label>{{words[currentWordNumber].ruswords.join(", ")}}</label>
+    <input type="text" ng-model="userInput">
+    Введите перевод и нажмите Enter
+    <input type="submit" ng-show="false">
+    <audio id="audio_{{words[currentWordNumber]._id}}" />
+</form>
+<div ng-show="showAnswer">
+    <label ng-show="words[currentWordNumber].successful">Правильно! =)</label>
+    <label ng-hide="words[currentWordNumber].successful">Не правильно :(</label>
+    Правильный ответ: {{words[currentWordNumber].engword}}
+</div>
+<div ng-show="showSummary">
+    Поздравляем! Вы дали {{words.length - failedWords.length}} из {{words.length}} правильных ответов.
 </div>

@@ -1,14 +1,24 @@
-(function (angular) {
+var app = angular.module('basicEnglishApp', ['ngRoute']);
 
-    angular.module('angular.jquery', []).config(['$provide', function ($provide) {
-        'use strict';
-        angular.module('angular.jquery').provide = $provide;
-    }]);
+app.config(function($routeProvider){
 
-    var app = angular.module('basicEnglishApp', [
-        'basicEnglishControllers',
-        'basicEnglishServices',
-        'basicEnglishDirectives'
-    ]);
+    $routeProvider
+        .when('/dictionary', {
+            templateUrl: '../Templates/ng/dictionary.html',
+            controller: 'dictionaryController'
+        })
+        .when('/exercise/:tutorialMode', {
+            templateUrl: '../Templates/ng/exercise.html',
+            controller: 'exerciseController'
+        })
+        .when('/exerciseWithLearning', {
+            templateUrl: '../Templates/ng/dictionary.html',
+            controller: 'exerciseWithLearningController'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
+});
 
-}(angular));
+const TOKEN_KEY = 'TOKEN_KEY';
+const sizeOfWordSet = 12;

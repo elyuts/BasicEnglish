@@ -1,28 +1,30 @@
-<html ng-app="basicEnglishApp" ng-controller="basicEnglishController as be">
+<html>
 <head>
-  <title>{{title}}</title>
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-  <link rel='stylesheet' href='stylesheets/style.css' />
+    <title>Basic English</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel='stylesheet' href='stylesheets/style.css' />
 
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js" defer></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js" defer></script>
+    <script src="bower_components/angular/angular.js" defer></script>
+    <script src="bower_components/angular-route/angular-route.js" defer></script>
 
-  <script src="js/controllers.js"></script>
-  <script src="js/directives.js"></script>
-  <script src="js/services.js"></script>
-  <script src="js/app.js"></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/controllers.js" defer></script>
+    <script src="js/directives.js" defer></script>
+    <script src="js/services.js" defer></script>
 </head>
 <body>
 
-<p>Welcome to Basic English</p>
-  <div>
-    <div class="row-fluid">
-      <login-form ng-hide="isAuthorized" model="be.loginFormData"></login-form>
-      <main-page ng-show="isAuthorized" model="be.mainPageData"></main-page>
-      <label>{{error}}</label>
+    <p>Welcome to Basic English</p>
+
+    <div ng-app="basicEnglishApp" ng-controller="mainController">
+        <login-form ng-show="isAuthorized() === false" model="loginFormData"></login-form>
+        <div ng-if="isAuthorized()">
+            <menu model="model"></menu>
+            <div ng-view></div>
+        </div>
     </div>
-  </div>
 
 </body>
 </html>
