@@ -12,7 +12,7 @@ app.config(function($routeProvider){
             controller: 'exerciseController'
         })
         .when('/exerciseWithLearning', {
-            templateUrl: '../Templates/ng/dictionary.html',
+            templateUrl: '../Templates/ng/exerciseWithLearning.html',
             controller: 'exerciseWithLearningController'
         })
         .otherwise({

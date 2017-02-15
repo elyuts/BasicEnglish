@@ -1,8 +1,7 @@
 <div class="flex-container well">
-    <p class="flex-element lead">Словарик</p>
-    <input class="flex-element wide" type="text" placeholder="Search" ng-model="searchText" />
+    <p class="flex-element lead">Упражнение с обучением</p>
     <ul class="flex-element dictionary-container list-unstyled">
-        <li ng-repeat="word in words | filter:searchText" class="dictionary-element" >
+        <li ng-repeat="word in words" class="dictionary-element" >
             <div class="col-xs-6">
                 <audio id="audio_{{word._id}}" />
                 <p><a><i class="glyphicon glyphicon-bullhorn hover-pointer" ng-click="makeSound(word)"/></a> {{word.engword}}</p>
@@ -10,4 +9,8 @@
             <div class="col-xs-6">{{word.ruswords.join(", ")}}</div>
         </li>
     </ul>
+    <a class="btn btn-primary flex-element" href="/#/exercise/true">
+        <i class="glyphicon glyphicon-play-circle"/>
+        Начать упражнение
+    </a>
 </div>
