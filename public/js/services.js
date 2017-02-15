@@ -61,10 +61,10 @@ app.factory('userService', ['$http', function ($http) {
     .factory('localDataService', ['apiService', function (apiService) {
         return {
             isAuthorized: null,
-            makeSound: function(word) {
+            makeSound: function(word, dontCache) {
                 var audioElement = document.getElementById('audio_' + word._id);
 
-                if(audioElement.src) {
+                if(!dontCache && audioElement.src) {
                     audioElement.play();
                 } else {
                     apiService.makeSound(word.engword)

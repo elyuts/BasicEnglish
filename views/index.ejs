@@ -14,17 +14,17 @@
     <script src="js/directives.js" defer></script>
     <script src="js/services.js" defer></script>
 </head>
-<body>
+<body ng-app="basicEnglishApp" ng-controller="mainController">
 
-    <p>Welcome to Basic English</p>
-
-    <div ng-app="basicEnglishApp" ng-controller="mainController">
-        <login-form ng-show="isAuthorized() === false" model="loginFormData"></login-form>
-        <div ng-if="isAuthorized()">
-            <menu model="model"></menu>
-            <div ng-view></div>
+    <div class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <a href="/#/" class="navbar-brand">Welcome to Basic English</a>
+            <menu ng-if="isAuthorized()" model="model"></menu>
         </div>
     </div>
+
+    <login-form ng-show="isAuthorized() === false" model="loginFormData"></login-form>
+    <div ng-if="isAuthorized()" ng-view class="view-container container-fluid"></div>
 
 </body>
 </html>

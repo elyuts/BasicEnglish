@@ -1,20 +1,14 @@
-<form class="form-horizontal login-form" name="login-form" ng-submit="model.login()">
+<form class="col-md-4 col-md-offset-4 col-xs-8 col-xs-offset-2 form-horizontal login-form" ng-submit="model.login()">
     <div class="form-group">
-        <label for="input-username" class="col-lg-2 control-label">Login:</label>
-        <div class="col-lg-10">
-            <input ng-model="model.username" type="text" class="form-control" id="input-username" placeholder="Name">
-        </div>
+        <label for="input-username">Login:</label>
+        <input ng-model="model.username" type="text" class="form-control" id="input-username" placeholder="Name">
     </div>
     <div class="form-group">
-        <label for="input-password" class="col-lg-2 control-label">Password:</label>
-        <div class="col-lg-10">
-            <input ng-model="model.password" type="password" class="form-control" id="input-password" placeholder="Password">
-        </div>
+        <label for="input-password">Password:</label>
+        <input ng-model="model.password" type="password" class="form-control" id="input-password" placeholder="Password">
     </div>
     <div class="form-group">
-        <div class="col-lg-offset-2 col-lg-10">
-            <span class="help-block error">{{model.errorMessage}}</span>
-            <input class="btn btn-primary" type="submit" value="Go!">
-        </div>
+        <button type="submit" class="btn btn-primary col-xs-12">Go!</button>
+        <span class="help-block error">{{model.errorMessage}}</span>
     </div>
 </form>

@@ -104,7 +104,7 @@ app.controller('mainController', ['$scope', 'userService', 'localDataService', f
         var word = $scope.words[$scope.currentWordNumber];
         word.successful = word.engword === $scope.userInput.trim().toLowerCase();
         $scope.showAnswer = true;
-        localDataService.makeSound(word)
+        localDataService.makeSound(word, true)
         if(!word.successful && $scope.exerciseMode === exerciseModes.checkWords)
             $scope.failedWords.push(word);
     };

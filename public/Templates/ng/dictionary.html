@@ -1,12 +1,16 @@
-{{ exerciseTutorialMode ? "Упражнение с обучением" : "Словарик" }}
-<table>
-    <tr ng-repeat="word in words">
-        <td>
-            <audio id="audio_{{word._id}}" />
-            <img src="../../images/listen-icon.png" ng-click="makeSound(word)" />
-            {{word.engword}}
-        </td>
-        <td>{{word.ruswords.join(", ")}}</td>
-    </tr>
-</table>
-<a class="btn btn-primary" ng-if="exerciseTutorialMode" href="/#/exercise/true">Начать упражнение</a>
+<div class="flex-container well">
+    <p class="flex-element lead">{{ exerciseTutorialMode ? "Упражнение с обучением" : "Словарик" }}</p>
+    <ul class="flex-element dictionary-container list-unstyled">
+        <li ng-repeat="word in words" class="dictionary-element" >
+            <div class="col-xs-6">
+                <audio id="audio_{{word._id}}" />
+                <p><a><i class="glyphicon glyphicon-bullhorn hover-pointer" ng-click="makeSound(word)"/></a>  {{word.engword}}</p>
+            </div>
+            <div class="col-xs-6">{{word.ruswords.join(", ")}}</div>
+        </li>
+    </ul>
+    <a class="btn btn-primary flex-element" ng-if="exerciseTutorialMode" href="/#/exercise/true">
+        <i class="glyphicon glyphicon-play-circle"/>
+        Начать упражнение
+    </a>
+</div>
