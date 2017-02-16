@@ -3,6 +3,11 @@ body {
   background-size: cover;
 }
 
+.auto-background {
+  background-image: url("../images/Stonehenge-5.jpg");
+  background-size: auto;
+}
+
 .flex-container {
   display: inline-flex;
   flex-direction: column;
@@ -17,15 +22,10 @@ body {
   margin-bottom: 0;
 }
 
-.view-container {
-  display: inline-flex;
-  justify-content: center;
-  flex-direction: row;
-}
-
 .dictionary-container {
   display: inline-flex;
   flex-direction: column;
+  min-width: 300px;
 }
 
 .dictionary-element:nth-child(even) {

@@ -1,13 +1,15 @@
-<div class="flex-container well">
-    <p class="flex-element lead">Словарик</p>
-    <input class="flex-element wide" type="text" placeholder="Search" ng-model="searchText" />
-    <ul class="flex-element dictionary-container list-unstyled">
-        <li ng-repeat="word in words | filter:searchText" class="dictionary-element" >
-            <div class="col-xs-6">
-                <audio id="audio_{{word._id}}" />
-                <p><a><i class="glyphicon glyphicon-bullhorn hover-pointer" ng-click="makeSound(word)"/></a> {{word.engword}}</p>
-            </div>
-            <div class="col-xs-6">{{word.ruswords.join(", ")}}</div>
-        </li>
-    </ul>
+<div class="flex-container auto-background wide">
+    <div class="flex-container well">
+        <p class="flex-element lead">Словарик</p>
+        <input class="flex-element wide" type="text" placeholder="Search" ng-model="searchText" />
+        <ul class="flex-element dictionary-container list-unstyled">
+            <li ng-repeat="word in words | filter:searchText" class="dictionary-element" >
+                <div class="col-xs-6">
+                    <audio id="audio_{{word._id}}" />
+                    <p><a><i class="glyphicon glyphicon-bullhorn hover-pointer" ng-click="makeSound(word)"/></a> {{word.engword}}</p>
+                </div>
+                <div class="col-xs-6">{{word.ruswords.join(", ")}}</div>
+            </li>
+        </ul>
+    </div>
 </div>
