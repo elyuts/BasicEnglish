@@ -1,7 +1,7 @@
 <div class="flex-container well opacity">
     <p class="flex-element lead">{{ exerciseTutorialMode ? "Упражнение с обучением" : "Упражнение" }}</p>
     <form class="flex-element" ng-submit="!showAnswer ? checkWord() : answerIsClearGoToNextWord()" ng-hide="showSummary">
-        <p>{{words[currentWordNumber].ruswords.join(", ")}}</p>
+        <p>{{words[currentWordNumber].ruswords.join(", ")}} </p>
         <input type="text" ng-model="userInput">
         <input type="submit" ng-show="false">
         <audio id="audio_{{words[currentWordNumber]._id}}" />
@@ -13,6 +13,12 @@
         <p ng-hide="words[currentWordNumber].successful">Правильный ответ: {{words[currentWordNumber].engword}}</p>
     </div>
     <div class="flex-element" ng-show="showSummary">
-        Поздравляем! Вы дали {{words.length - failedWords.length}} из {{words.length}} правильных ответов.
+        Поздравляем! Вы дали {{wordsCount - failedWords.length}} из {{wordsCount}} правильных ответов.
     </div>
+    <a class="flex-element btn btn-primary" ng-if="showSummary && exerciseTutorialMode" href="/#/exerciseWithLearning">
+        <i class="glyphicon glyphicon-repeat"/> Попробовать еще раз
+    </a>
+    <button class="flex-element btn btn-primary" ng-if="showSummary && !exerciseTutorialMode" ng-click="init()">
+        <i class="glyphicon glyphicon-repeat"/> Попробовать еще раз
+    </button>
 </div>

@@ -32,6 +32,23 @@ body {
   background-color: #e3e3e3;
 }
 
+.dictionary-element:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+.dictionary-element:nth-child(even) .dictionary-element-hidden {
+  color: #e3e3e3;
+}
+
+.dictionary-element:nth-child(odd) .dictionary-element-hidden {
+  color: #f5f5f5;
+}
+
+.eye-icon {
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
 .hover-pointer:hover {
   cursor: pointer;
 }

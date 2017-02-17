@@ -41,33 +41,28 @@ app.controller('mainController', ['$scope', 'userService', 'localDataService', f
 
     $scope.makeSound = localDataService.makeSound;
 
-    $scope.completeDictionary = function() {
-        apiService.getFullDictionary()
-            .then(response => {
-                if(!$scope.words)
-                    $scope.words = response.data;
-            })
-            .catch(err => {
-                if(err.statusCode === 401)
-                    localDataService.isAuthorized = false;
-                console.log(err.data);
-            });
-    };
-
-    $scope.completeDictionary();
-
+    apiService.getFullDictionary()
+        .then(response => {
+            $scope.words = response.data;
+        })
+        .catch(err => {
+            if(err.statusCode === 401)
+                localDataService.isAuthorized = false;
+            console.log(err.data);
+        });
 }])
 
 .controller('exerciseWithLearningController', ['$scope', 'apiService', 'localDataService', function ($scope, apiService, localDataService) {
 
     $scope.exerciseTutorialMode = true;
-
     $scope.makeSound = localDataService.makeSound;
+    $scope.showEngColumn = true;
+    $scope.showRusColumn = true;
 
     $scope.completeDictionary = function() {
         apiService.getRandomWords(sizeOfWordSet)
             .then(response => {
-                $scope.words = response.data;
+                $scope.words = localDataService.tutorialWords = response.data;
             })
             .catch(err => {
                 if(err.statusCode === 401)
@@ -77,7 +72,6 @@ app.controller('mainController', ['$scope', 'userService', 'localDataService', f
     };
 
     $scope.completeDictionary();
-    localDataService.tutorialWords = $scope.words;
 
 }])
 
@@ -85,19 +79,12 @@ app.controller('mainController', ['$scope', 'userService', 'localDataService', f
 
     $scope.exerciseTutorialMode = JSON.parse($routeParams.tutorialMode);
 
-    var exerciseModes =  {
+    let exerciseModes =  {
         checkWords: 1,
         checkFailedWords1: 2,
         checkFailedWords2: 3
     };
 
-    $scope.exerciseMode = exerciseModes.checkWords;
-    $scope.words = [];
-    $scope.failedWords = [];
-    $scope.currentWordNumber = 0;
-    $scope.userInput = '';
-    $scope.showAnswer = false;
-    $scope.showSummary = false;
     $scope.makeSound = localDataService.makeSound;
 
     $scope.checkWord = function() {
@@ -112,7 +99,7 @@ app.controller('mainController', ['$scope', 'userService', 'localDataService', f
     $scope.answerIsClearGoToNextWord = function() {
         if($scope.currentWordNumber < $scope.words.length - 1) {
             $scope.currentWordNumber++;
-        } else if($scope.exerciseMode < exerciseModes.checkFailedWords2) {
+        } else if($scope.exerciseMode < exerciseModes.checkFailedWords2 && $scope.failedWords.length) {
             $scope.exerciseMode++;
             $scope.words = $scope.failedWords;
             $scope.currentWordNumber = 0;
@@ -123,22 +110,35 @@ app.controller('mainController', ['$scope', 'userService', 'localDataService', f
         $scope.userInput = '';
     };
 
-    if($scope.exerciseTutorialMode) {
-        $scope.words = localDataService.tutorialWords;
-    } else {
-        $scope.completeDictionary = function() {
-            apiService.getRandomWords(sizeOfWordSet)
-                .then(response => {
-                    $scope.words = response.data;
-                })
-                .catch(err => {
-                    if(err.statusCode === 401)
-                        localDataService.isAuthorized = false;
-                    console.log(err.data);
-                });
-        };
+    $scope.completeDictionary = function() {
+        apiService.getRandomWords(sizeOfWordSet)
+            .then(response => {
+                $scope.words = response.data;
+            })
+            .catch(err => {
+                if(err.statusCode === 401)
+                    localDataService.isAuthorized = false;
+                console.log(err.data);
+            });
+    };
 
-        $scope.completeDictionary();
-    }
+    $scope.init = function(){
+        $scope.exerciseMode = exerciseModes.checkWords;
+        $scope.words = [];
+        $scope.wordsCount = sizeOfWordSet;
+        $scope.failedWords = [];
+        $scope.currentWordNumber = 0;
+        $scope.userInput = '';
+        $scope.showAnswer = false;
+        $scope.showSummary = false;
+
+        if($scope.exerciseTutorialMode) {
+            $scope.words = shuffleArray(localDataService.tutorialWords);
+        } else {
+            $scope.completeDictionary();
+        }
+    };
+
+    $scope.init();
 
 }]);

@@ -1,16 +1,32 @@
 <div class="flex-container well">
     <p class="flex-element lead">Упражнение с обучением</p>
     <ul class="flex-element dictionary-container list-unstyled">
+        <li class="dictionary-element" >
+            <div class="col-xs-6 flex-container eye-icon">
+                <i class="glyphicon hover-pointer" ng-class="showEngColumn ? 'glyphicon-eye-open' : 'glyphicon-eye-close'"
+                   ng-click="showEngColumn = !showEngColumn"/>
+            </div>
+            <div class="col-xs-6 flex-container eye-icon">
+                <i class="glyphicon hover-pointer" ng-class="showRusColumn ? 'glyphicon-eye-open' : 'glyphicon-eye-close'"
+                   ng-click="showRusColumn = !showRusColumn"/>
+            </div>
+        </li>
         <li ng-repeat="word in words" class="dictionary-element" >
-            <div class="col-xs-6">
+            <div class="col-xs-6" ng-class="{ 'dictionary-element-hidden' : !showEngColumn }">
                 <audio id="audio_{{word._id}}" />
                 <p><a><i class="glyphicon glyphicon-bullhorn hover-pointer" ng-click="makeSound(word)"/></a> {{word.engword}}</p>
             </div>
-            <div class="col-xs-6">{{word.ruswords.join(", ")}}</div>
+            <div class="col-xs-6" ng-class="{ 'dictionary-element-hidden' : !showRusColumn }">
+                {{word.ruswords.join(", ")}}
+            </div>
         </li>
     </ul>
-    <a class="btn btn-primary flex-element" href="/#/exercise/true">
-        <i class="glyphicon glyphicon-play-circle"/>
-        Начать упражнение
-    </a>
+    <div class="flex-element flex-container">
+        <a class="btn btn-primary flex-element" href="/#/exercise/true">
+            <i class="glyphicon glyphicon-play-circle"/> Начать упражнение
+        </a>
+        <button class="btn flex-element wide" ng-click="completeDictionary()">
+            <i class="glyphicon glyphicon-repeat"/> Обновить
+        </button>
+    </div>
 </div>
